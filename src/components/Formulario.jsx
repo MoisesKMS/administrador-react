@@ -8,9 +8,18 @@ function Formulario() {
     const [fecha, setFecha] = useState('');
     const [sintomas, setSintomas] = useState('');
 
+    const [error, setError] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Enviando Formulario');
+
+        //Validacion del formulario
+        if ([nombre, propietario, email, fecha, sintomas].includes('')) {
+            setError(true);
+            return;
+        }
+
+        setError(false);
     }
 
     return (
@@ -24,7 +33,13 @@ function Formulario() {
 
             <form
                 onSubmit={handleSubmit}
-                className="bg-white shadow-md rounded-lg py-10 px-5 mb-10 mx-5">
+                className="bg-white shadow-md rounded-lg py-10 px-5 mb-10 mx-5"
+            >
+                {error && (
+                    <div className="bg-red-800 text-white text-center p-3 uppercase font-bold mb-3 rounded-md">
+                        <p>Hay campos Vacios</p>
+                    </div>
+                )}
                 <div className="mb-5">
                     <label className="block text-gray-700 uppercase font-bold" htmlFor="mascota">Nombre Mascota:</label>
                     <input
