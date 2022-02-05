@@ -126,7 +126,7 @@ function Formulario({ pacientes, setPacientes, paciente, setPaciente }) {
                 </div>
 
                 <div className="mb-5">
-                    <label className="block text-gray-700 uppercase font-bold" htmlFor="email">Alta:</label>
+                    <label className="block text-gray-700 uppercase font-bold" htmlFor="alta">Alta:</label>
                     <input
                         type="date"
                         className="border-2 w-full p-2 mt-2 rounded-md"
