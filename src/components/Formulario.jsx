@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import Error from "./Error";
 
-function Formulario() {
+function Formulario({ pacientes, setPacientes }) {
 
     const [nombre, setNombre] = useState('');
     const [propietario, setPropietario] = useState('');
@@ -9,6 +10,13 @@ function Formulario() {
     const [sintomas, setSintomas] = useState('');
 
     const [error, setError] = useState(false);
+
+    const generarId = () => {
+        const random = Math.random().toString(36).substring(2);
+        const fecha = Date.now().toString(36)
+
+        return random + fecha;
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,6 +28,26 @@ function Formulario() {
         }
 
         setError(false);
+
+        // Objeto de Paciente
+        const objetoPaciente = {
+            nombre,
+            propietario,
+            email,
+            fecha,
+            sintomas,
+            id: generarId()
+        }
+
+        setPacientes([...pacientes, objetoPaciente]);
+
+
+        //reiniciar el formulario
+        setNombre('');
+        setPropietario('');
+        setEmail('');
+        setFecha('');
+        setSintomas('');
     }
 
     return (
@@ -36,9 +64,7 @@ function Formulario() {
                 className="bg-white shadow-md rounded-lg py-10 px-5 mb-10 mx-5"
             >
                 {error && (
-                    <div className="bg-red-800 text-white text-center p-3 uppercase font-bold mb-3 rounded-md">
-                        <p>Hay campos Vacios</p>
-                    </div>
+                    <Error>Hay campos Vacios</Error>
                 )}
                 <div className="mb-5">
                     <label className="block text-gray-700 uppercase font-bold" htmlFor="mascota">Nombre Mascota:</label>
